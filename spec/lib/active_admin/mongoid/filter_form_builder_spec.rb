@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ActiveAdmin::Filters::FormBuilder do
+describe ActiveAdmin::Filters::MongoFormBuilder do
   describe '#default_input_type' do
     let(:instance) { described_class.new({}, {}, {}, {}) }
     let(:column) { double(:column) }

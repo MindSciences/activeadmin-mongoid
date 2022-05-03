@@ -1,4 +1,9 @@
-class ActiveAdmin::Filters::FormBuilder
+class ActiveAdmin::Filters::MongoFormBuilder < ::ActiveAdmin::FormBuilder
+  include ::ActiveAdmin::Filters::FormtasticAddons
+  self.input_namespaces = [::Object, ::ActiveAdmin::Inputs::Filters, ::ActiveAdmin::Inputs, ::Formtastic::Inputs]
+
+  # TODO: remove input class finders after formtastic 4 (where it will be default)
+  self.input_class_finder = ::Formtastic::InputClassFinder
 
   def filter(method, options = {})
     if method.present? && options[:as] ||= default_input_type(method)
@@ -23,6 +28,8 @@ class ActiveAdmin::Filters::FormBuilder
       return :string
     end
   end
+
+  protected
 
   def is_association?(method)
     @object.klass.associations.to_a.map!(&:first).include?(method.to_s)
